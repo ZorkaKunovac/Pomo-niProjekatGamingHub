@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "UrediKonzolu";
-    var konzole = (Konzola)ViewData["konzole"];
+    var k = (Konzola)ViewData["konzola"];
 }
 
 <h1>UrediKonzolu</h1>
@@ -14,36 +14,39 @@
     <div class="col-md-4">
         <form asp-action="SnimiKonzolu" asp-controller="Moderator">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group" readonly style="display:none">
+                <label>KonzolaID</label>
+                <input name="KonzolaID" value="@k.Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>            <div class="form-group">
                 <label asp-for="Naziv" class="control-label"></label>
-                <input asp-for="Naziv" class="form-control" />
+                <input asp-for="Naziv" value="@k.Naziv" class="form-control" />
                 <span asp-validation-for="Naziv" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Proizvodjac" class="control-label"></label>
-                <input asp-for="Proizvodjac" class="form-control" />
+                <input asp-for="Proizvodjac" value="@k.Proizvodjac" class="form-control" />
                 <span asp-validation-for="Proizvodjac" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Kapacitet" class="control-label"></label>
-                <input asp-for="Kapacitet" class="form-control" />
+                <input asp-for="Kapacitet" value="@k.Kapacitet" class="form-control" />
                 <span asp-validation-for="Kapacitet" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Detalji" class="control-label"></label>
-                <input asp-for="Detalji" class="form-control" />
+                <input asp-for="Detalji" value="@k.Detalji" class="form-control" />
                 <span asp-validation-for="Detalji" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="SnimiKonzolu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="KonzolaPrikaz">Natrag</a>
 </div>
 
 @section Scripts {

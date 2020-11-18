@@ -18,6 +18,45 @@ namespace PomoćniProjekatGamingHub.Controllers
             ViewData["konzole"] = konzole;
             return View("KonzolaPrikaz");
         }
+        public IActionResult SnimiKonzolu(int KonzolaID, string Naziv, string Proizvodjac, int Kapacitet, string Detalji)
+        {
+            MojDbContext db = new MojDbContext();
+            Konzola konzola;
+            if (KonzolaID == 0)
+            {
+                konzola = new Konzola();
+                db.Add(konzola);
+            }
+            else
+            {
+                konzola = db.Konzola.Find(KonzolaID);
+            }
+            konzola.Naziv = Naziv;
+            konzola.Proizvodjac = Proizvodjac;
+            konzola.Kapacitet = Kapacitet;
+            konzola.Detalji = Detalji;
+
+            db.SaveChanges();
+            return Redirect("/Moderator/KonzolaPrikaz");
+        }
+
+        public IActionResult UrediKonzolu(int KonzolaID)
+        {
+            MojDbContext db = new MojDbContext();
+
+            Konzola k = KonzolaID == 0 ? new Konzola() : db.Konzola.Find(KonzolaID);
+            ViewData["konzola"] = k;
+            return View("UrediKonzolu");
+        }
+        public IActionResult ObrisiKonzolu(int KonzolaID)
+        {
+            MojDbContext db = new MojDbContext();
+            Konzola k = db.Konzola.Find(KonzolaID);
+            db.Remove(k);
+            db.SaveChanges();
+            return Redirect("/Moderator/KonzolaPrikaz");
+        }
+
         public IActionResult PrikazZarn()
         {
             MojDbContext db = new MojDbContext();

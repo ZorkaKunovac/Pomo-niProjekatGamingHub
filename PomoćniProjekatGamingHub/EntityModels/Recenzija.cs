@@ -11,6 +11,8 @@ namespace PomoćniProjekatGamingHub.EntityModels
         public int ID { get; set; }
         public int KorisnikId { get; set; }
         public Korisnik Korisnik { get; set; }
+        public int IgraId { get; set; }
+        public Igra Igra { get; set; }
 
         [MaxLength(250)]
         public string Naslov { get; set; }
@@ -18,6 +20,5 @@ namespace PomoćniProjekatGamingHub.EntityModels
 
         [MaxLength(2000)]
         public string Sadrzaj { get; set; }
-        public virtual ICollection<RecenzijaZarn> RecenzijaZarn { get; set; }
-    }
+     }
 }

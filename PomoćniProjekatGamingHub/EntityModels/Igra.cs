@@ -23,5 +23,6 @@ namespace PomoćniProjekatGamingHub.EntityModels
         public string SlikaLink { get; set; }
         public virtual ICollection<IgraZarn> IgraZarn { get; set; }
         public virtual ICollection<IgraKonzola> IgraKonzola { get; set; }
+        public virtual ICollection<IgraTag> IgraTag { get; set; }
     }
 }

@@ -43,6 +43,17 @@ namespace PomoćniProjekatGamingHub.EF
                 .HasOne(ik => ik.Konzola)
                 .WithMany(k => k.IgraKonzola)
                 .HasForeignKey(ik => ik.KonzolaID);
+
+            modelBuilder.Entity<IgraTag>()
+                .HasKey(it => new { it.IgraID, it.TagID });
+            modelBuilder.Entity<IgraTag>()
+                .HasOne(it => it.Igra)
+                .WithMany(i => i.IgraTag)
+                .HasForeignKey(it => it.IgraID);
+            modelBuilder.Entity<IgraTag>()
+                .HasOne(it => it.Tag)
+                .WithMany(t => t.IgraTag)
+                .HasForeignKey(it => it.TagID);
         }
         public DbSet<TipKorisnika> TipKorisnika { get; set; }
         public DbSet<Korisnik> Korisnik { get; set; }
@@ -53,6 +64,8 @@ namespace PomoćniProjekatGamingHub.EF
         public DbSet<IgraZarn> IgraZarn { get; set; }
         public DbSet<Konzola> Konzola { get; set; }
         public DbSet<IgraKonzola> IgraKonzola { get; set; }
+        public DbSet<Tag> Tag { get; set; }
+        public DbSet<IgraTag> IgraTag { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"	Server=localhost;

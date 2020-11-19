@@ -16,7 +16,6 @@ namespace PomoćniProjekatGamingHub.EntityModels
 
         [MaxLength(2000)]
         public string Opis { get; set; }
-        public virtual ICollection<RecenzijaZarn> RecenzijaZarn { get; set; }
         public virtual ICollection<IgraZarn> IgraZarn { get; set; }
 
     }

@@ -13,5 +13,7 @@ namespace PomoćniProjekatGamingHub.EntityModels
         public int NabavnaCijena { get; set; }
         public int ProdajnaCijena { get; set; }
         public float Popust { get; set; }
+        public int IgraID { get; set; }
+        public Igra Igra { get; set; }
     }
 }

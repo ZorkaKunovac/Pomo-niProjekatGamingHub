@@ -11,17 +11,6 @@ namespace PomoćniProjekatGamingHub.EF
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RecenzijaZarn>()
-                .HasKey(rz => new { rz.RecenzijaID, rz.ZarnID });
-            modelBuilder.Entity<RecenzijaZarn>()
-                .HasOne(rz => rz.Recenzija)
-                .WithMany(r => r.RecenzijaZarn)
-                .HasForeignKey(rz => rz.RecenzijaID);
-            modelBuilder.Entity<RecenzijaZarn>()
-                .HasOne(rz => rz.Zarn)
-                .WithMany(z => z.RecenzijaZarn)
-                .HasForeignKey(rz => rz.ZarnID);
-       
             modelBuilder.Entity<IgraZarn>()
                 .HasKey(iz => new { iz.IgraID, iz.ZarnID });
             modelBuilder.Entity<IgraZarn>()
@@ -54,12 +43,16 @@ namespace PomoćniProjekatGamingHub.EF
                 .HasOne(it => it.Tag)
                 .WithMany(t => t.IgraTag)
                 .HasForeignKey(it => it.TagID);
+
+            modelBuilder.Entity<Igra>()
+                .HasOne(i => i.Proizvod)
+                .WithOne(p => p.Igra)
+                .HasForeignKey<Proizvod>(p => p.IgraID);
         }
         public DbSet<TipKorisnika> TipKorisnika { get; set; }
         public DbSet<Korisnik> Korisnik { get; set; }
         public DbSet<Zarn> Zarn { get; set; }
         public DbSet<Recenzija> Recenzija { get; set; }
-        public DbSet<RecenzijaZarn> RecenzijaZarn { get; set; }
         public DbSet<Igra> Igra { get; set; }
         public DbSet<IgraZarn> IgraZarn { get; set; }
         public DbSet<Konzola> Konzola { get; set; }

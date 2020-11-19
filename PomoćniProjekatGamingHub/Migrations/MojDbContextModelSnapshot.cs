@@ -38,9 +38,6 @@ namespace PomoćniProjekatGamingHub.Migrations
                     b.Property<string>("Naziv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProizvodID")
-                        .HasColumnType("int");
-
                     b.Property<string>("SlikaLink")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
@@ -50,8 +47,6 @@ namespace PomoćniProjekatGamingHub.Migrations
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProizvodID");
 
                     b.ToTable("Igra");
                 });
@@ -179,6 +174,9 @@ namespace PomoćniProjekatGamingHub.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IgraID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImeProizvoda")
                         .HasColumnType("nvarchar(max)");
 
@@ -196,6 +194,9 @@ namespace PomoćniProjekatGamingHub.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IgraID")
+                        .IsUnique();
+
                     b.ToTable("Proizvod");
                 });
 
@@ -208,6 +209,9 @@ namespace PomoćniProjekatGamingHub.Migrations
 
                     b.Property<DateTime?>("DatumKreiranja")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IgraId")
+                        .HasColumnType("int");
 
                     b.Property<int>("KorisnikId")
                         .HasColumnType("int");
@@ -222,24 +226,11 @@ namespace PomoćniProjekatGamingHub.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("IgraId");
+
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("Recenzija");
-                });
-
-            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.RecenzijaZarn", b =>
-                {
-                    b.Property<int>("RecenzijaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ZarnID")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecenzijaID", "ZarnID");
-
-                    b.HasIndex("ZarnID");
-
-                    b.ToTable("RecenzijaZarn");
                 });
 
             modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.Tag", b =>
@@ -291,15 +282,6 @@ namespace PomoćniProjekatGamingHub.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Zarn");
-                });
-
-            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.Igra", b =>
-                {
-                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Proizvod", "Proizvod")
-                        .WithMany()
-                        .HasForeignKey("ProizvodID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.IgraKonzola", b =>
@@ -356,26 +338,26 @@ namespace PomoćniProjekatGamingHub.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.Recenzija", b =>
+            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.Proizvod", b =>
                 {
-                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("KorisnikId")
+                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Igra", "Igra")
+                        .WithOne("Proizvod")
+                        .HasForeignKey("PomoćniProjekatGamingHub.EntityModels.Proizvod", "IgraID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.RecenzijaZarn", b =>
+            modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.Recenzija", b =>
                 {
-                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Recenzija", "Recenzija")
-                        .WithMany("RecenzijaZarn")
-                        .HasForeignKey("RecenzijaID")
+                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Igra", "Igra")
+                        .WithMany()
+                        .HasForeignKey("IgraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Zarn", "Zarn")
-                        .WithMany("RecenzijaZarn")
-                        .HasForeignKey("ZarnID")
+                    b.HasOne("PomoćniProjekatGamingHub.EntityModels.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

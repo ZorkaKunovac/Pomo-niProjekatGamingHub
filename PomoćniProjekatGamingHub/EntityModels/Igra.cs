@@ -9,8 +9,6 @@ namespace PomoćniProjekatGamingHub.EntityModels
     public class Igra
     {
         public int Id { get; set; }
-        public int ProizvodID { get; set; }
-        public Proizvod Proizvod { get; set; }
         public string Naziv { get; set; }
         public string Developer { get; set; }
         public string Izdavac { get; set; }
@@ -21,6 +19,7 @@ namespace PomoćniProjekatGamingHub.EntityModels
 
         [MaxLength(100)]
         public string SlikaLink { get; set; }
+        public Proizvod Proizvod { get; set; }
         public virtual ICollection<IgraZarn> IgraZarn { get; set; }
         public virtual ICollection<IgraKonzola> IgraKonzola { get; set; }
         public virtual ICollection<IgraTag> IgraTag { get; set; }

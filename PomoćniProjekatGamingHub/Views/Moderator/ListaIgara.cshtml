@@ -1,0 +1,40 @@
+﻿@using PomoćniProjekatGamingHub.EntityModels
+
+@{
+    var igre = (List<Igra>)ViewData["igre"];
+}
+
+<h1>Igre</h1>
+<a href="/Moderator/UrediIgru" class="btn btn-success">Dodaj</a>
+
+<br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Slika</th>
+            <th>Naziv</th>
+            <th>Izdavac</th>
+            <th>Developer</th>
+            <th>Datum Izlaska</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Igra i in igre)
+        {
+            <tr>
+                <td>@i.SlikaLink</td>
+                <td>@i.Naziv</td>
+                <td>@i.Izdavac</td>
+                <td>@i.Developer</td>
+                <td>@i.DatumIzlaska</td>
+                <td>
+                    <a href="/Moderator/DetaljiIgre?IgraID=@i.Id" class="btn btn-primary">Detalji</a>
+                    <a href="/Moderator/UrediIgru?IgraID=@i.Id" class="btn btn-primary">Uredi</a>
+                    <a href="/Moderator/ObrisiIgru?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

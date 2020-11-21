@@ -11,12 +11,26 @@ namespace PomoćniProjekatGamingHub.Controllers
 {
     public class ModeratorController : Controller
     {
-         public IActionResult KonzolaPrikaz()
+        public IActionResult KonzolaPrikaz()
         {
             MojDbContext db = new MojDbContext();
             List<Konzola> konzole = db.Konzola.ToList();
             ViewData["konzole"] = konzole;
             return View("KonzolaPrikaz");
+        }
+        public IActionResult ListaIgara()
+        {
+            MojDbContext db = new MojDbContext();
+            List<Igra> igre = db.Igra.ToList();
+            ViewData["igre"] = igre;
+            return View("ListaIgara");
+        }
+        public IActionResult ListaRecenzija()
+        {
+            MojDbContext db = new MojDbContext();
+            List<Recenzija> recenzije = db.Recenzija.ToList();
+            ViewData["recenzije"] = recenzije;
+            return View("ListaRecenzija");
         }
         public IActionResult SnimiKonzolu(int KonzolaID, string Naziv, string Proizvodjac, int Kapacitet, string Detalji)
         {

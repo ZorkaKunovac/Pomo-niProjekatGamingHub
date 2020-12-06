@@ -26,40 +26,46 @@ namespace PomoćniProjekatGamingHub.Controllers
 
             return View(m);
         }
-
-        public IActionResult ListaRecenzija()
+        public IActionResult UrediKonzolu(int KonzolaID)
         {
-             List<Recenzija> recenzije = db.Recenzija.ToList();
-            ViewData["recenzije"] = recenzije;
-            return View("ListaRecenzija");
+            KonzolaUrediVM m;
+            if (KonzolaID == 0)
+            {
+                m = new KonzolaUrediVM() { };
+            }
+            else
+            {
+                m = db.Konzola.Where(k => k.Id == KonzolaID)
+                .Select(k => new KonzolaUrediVM
+                {
+                    KonzolaID = k.Id,
+                    Naziv = k.Naziv,
+                    Detalji = k.Detalji,
+                    Kapacitet = k.Kapacitet,
+                    Proizvodjac = k.Proizvodjac
+                }).Single();
+            }
+            return View(m);
         }
-        public IActionResult SnimiKonzolu(int KonzolaID, string Naziv, string Proizvodjac, int Kapacitet, string Detalji)
+        public IActionResult SnimiKonzolu(KonzolaUrediVM Konzola)
         {
              Konzola konzola;
-            if (KonzolaID == 0)
+            if (Konzola.KonzolaID == 0)
             {
                 konzola = new Konzola();
                 db.Add(konzola);
             }
             else
             {
-                konzola = db.Konzola.Find(KonzolaID);
+                konzola = db.Konzola.Find(Konzola.KonzolaID);
             }
-            konzola.Naziv = Naziv;
-            konzola.Proizvodjac = Proizvodjac;
-            konzola.Kapacitet = Kapacitet;
-            konzola.Detalji = Detalji;
+            konzola.Naziv = Konzola.Naziv;
+            konzola.Proizvodjac = Konzola.Proizvodjac;
+            konzola.Kapacitet = Konzola.Kapacitet;
+            konzola.Detalji = Konzola.Detalji;
 
             db.SaveChanges();
             return Redirect("/Moderator/KonzolaPrikaz");
-        }
-
-        public IActionResult UrediKonzolu(int KonzolaID)
-        {
- 
-            Konzola k = KonzolaID == 0 ? new Konzola() : db.Konzola.Find(KonzolaID);
-            ViewData["konzola"] = k;
-            return View("UrediKonzolu");
         }
         public IActionResult ObrisiKonzolu(int KonzolaID)
         {
@@ -94,11 +100,8 @@ namespace PomoćniProjekatGamingHub.Controllers
             db.SaveChanges();
             return Redirect("/Moderator/PrikazZarn");
         }
- 
         public IActionResult Uredi(int ZarnID)
         {
-            
-
             Zarn z = ZarnID == 0 ? new Zarn() : db.Zarn.Find(ZarnID);
             ViewData["zarn"] = z;
             return View("UrediZarn");
@@ -110,6 +113,12 @@ namespace PomoćniProjekatGamingHub.Controllers
             db.Remove(z);
             db.SaveChanges();
             return Redirect("/Moderator/PrikazZarn");
+        }
+         public IActionResult ListaRecenzija()
+        {
+             List<Recenzija> recenzije = db.Recenzija.ToList();
+            ViewData["recenzije"] = recenzije;
+            return View("ListaRecenzija");
         }
 
         public IActionResult Index()

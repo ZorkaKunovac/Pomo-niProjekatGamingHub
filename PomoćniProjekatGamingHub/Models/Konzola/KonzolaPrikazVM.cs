@@ -12,6 +12,5 @@ namespace PomoćniProjekatGamingHub.Models.Konzola
         public string Proizvodjac { get; set; }
         public int Kapacitet { get; set; }
         public string Detalji { get; set; }
-
     }
 }

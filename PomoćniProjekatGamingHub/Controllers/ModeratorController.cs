@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using PomoćniProjekatGamingHub.EF;
 using PomoćniProjekatGamingHub.EntityModels;
 using PomoćniProjekatGamingHub.Models.Konzola;
+using PomoćniProjekatGamingHub.Models.Zarn;
 
 namespace PomoćniProjekatGamingHub.Controllers
 {
@@ -77,44 +78,62 @@ namespace PomoćniProjekatGamingHub.Controllers
 
         public IActionResult PrikazZarn()
         {
-             List<Zarn> zarnovi = db.Zarn.ToList();
+            var zarnovi = db.Zarn
+                .Select(z => new ZarnPrikazVM
+                {
+                    Id = z.Id,
+                    Naziv = z.Naziv,
+                    Opis = z.Opis
+                }).ToList();
 
-            ViewData["zarnovi"] = zarnovi;
-            return View("PrikazZarn");
+            return View(zarnovi);
         }
-        public IActionResult SnimiZarn(int ZarnID, string Naziv, string Opis)
+        public IActionResult UrediZarn(int ZarnID)
+        {
+            ZarnUrediVM zarn;
+            if (ZarnID == 0)
+            {
+                zarn = new ZarnUrediVM() { };
+            }
+            else
+            {
+                zarn = db.Zarn.Where(z => z.Id == ZarnID)
+                .Select(z => new ZarnUrediVM
+                {
+                    Id = z.Id,
+                    Naziv = z.Naziv,
+                    Opis = z.Opis
+                }).Single();
+            }
+
+            return View(zarn);
+        }
+        public IActionResult SnimiZarn(ZarnUrediVM z)
         {
              Zarn zarn;
-            if (ZarnID == 0)
+            if (z.Id == 0)
             {
                 zarn = new Zarn();
                 db.Add(zarn);
             }
             else
             {
-                zarn = db.Zarn.Find(ZarnID);
+                zarn = db.Zarn.Find(z.Id);
             }
-            zarn.Naziv = Naziv;
-            zarn.Opis = Opis;
+            zarn.Naziv = z.Naziv;
+            zarn.Opis = z.Opis;
 
             db.SaveChanges();
             return Redirect("/Moderator/PrikazZarn");
         }
-        public IActionResult Uredi(int ZarnID)
-        {
-            Zarn z = ZarnID == 0 ? new Zarn() : db.Zarn.Find(ZarnID);
-            ViewData["zarn"] = z;
-            return View("UrediZarn");
-        }
         public IActionResult Obrisi(int ZarnID)
         {
-            
             Zarn z = db.Zarn.Find(ZarnID);
             db.Remove(z);
             db.SaveChanges();
             return Redirect("/Moderator/PrikazZarn");
         }
-         public IActionResult ListaRecenzija()
+        public IActionResult ListaRecenzija()
         {
              List<Recenzija> recenzije = db.Recenzija.ToList();
             ViewData["recenzije"] = recenzije;

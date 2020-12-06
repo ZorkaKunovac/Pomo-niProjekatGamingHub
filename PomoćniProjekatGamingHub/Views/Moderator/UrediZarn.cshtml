@@ -1,10 +1,4 @@
-﻿@model PomoćniProjekatGamingHub.EntityModels.Zarn
-@using PomoćniProjekatGamingHub.EntityModels
-
-@{
-    ViewData["Title"] = "UrediZarn";
-    var zarnovi = (Zarn)ViewData["zarn"];
-}
+﻿@model PomoćniProjekatGamingHub.Models.Zarn.ZarnUrediVM
 
 <h1>UrediZarn</h1>
 
@@ -16,17 +10,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" readonly style="display:none">
                 <label>ZarnID</label>
-                <input name="ZarnID" value="@zarnovi.Id" class="form-control" />
+                <input name="Id" value="@Model.Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Naziv"  class="control-label"></label>
-                <input asp-for="Naziv" value=@zarnovi.Naziv class="form-control" />
+                <input asp-for="Naziv" value=@Model.Naziv class="form-control" />
                 <span asp-validation-for="Naziv" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Opis" class="control-label"></label>
-                <input asp-for="Opis" value=@zarnovi.Opis class="form-control" />
+                <input asp-for="Opis" value=@Model.Opis class="form-control" />
                 <span asp-validation-for="Opis" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,6 +34,3 @@
     <a asp-action="PrikazZarn">Nazad na listu</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

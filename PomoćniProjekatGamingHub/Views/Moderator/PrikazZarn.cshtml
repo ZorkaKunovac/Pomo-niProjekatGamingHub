@@ -1,11 +1,9 @@
-﻿@using PomoćniProjekatGamingHub.EntityModels
+﻿@using PomoćniProjekatGamingHub.Models.Zarn
 
-@{
-    var zarnovi = (List<Zarn>)ViewData["zarnovi"];
-}
+@model List<ZarnPrikazVM>
 
 <h1>Zarnovi</h1>
-<a href="/Moderator/Uredi" class="btn btn-success">Dodaj</a>
+<a href="/Moderator/UrediZarn" class="btn btn-success">Dodaj</a>
 <br />
 <table class="table table-hover">
     <thead>
@@ -16,13 +14,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Zarn z in zarnovi)
+        @foreach (ZarnPrikazVM z in Model)
         {
             <tr>
                 <td>@z.Naziv</td>
                 <td>@z.Opis</td>
                 <td>
-                    <a href="/Moderator/Uredi?ZarnID=@z.Id" class="btn btn-primary">Uredi</a>
+                    <a href="/Moderator/UrediZarn?ZarnID=@z.Id" class="btn btn-primary">Uredi</a>
                     <a href="/Moderator/Obrisi?ZarnID=@z.Id" class="btn btn-danger">Obrisi</a>
                 </td>
             </tr>

@@ -14,8 +14,8 @@ namespace PomoćniProjekatGamingHub.Models
         public string Developer { get; set; }
         public string Izdavac { get; set; }
         public DateTime? DatumIzlaska { get; set; }
-        public List<SelectListGroup> IgraZarn { get; set; }
-        public List<SelectListGroup> IgraKonzola { get; set; }
+        public List<SelectListItem> IgraZarn { get; set; }
+        public List<SelectListItem> IgraKonzola { get; set; }
         public string VideoLink { get; set; }
         public string SlikaLink { get; set; }
         

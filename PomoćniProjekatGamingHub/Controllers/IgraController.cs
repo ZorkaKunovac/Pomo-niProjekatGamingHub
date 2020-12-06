@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PomoćniProjekatGamingHub.EF;
 using PomoćniProjekatGamingHub.EntityModels;
 using PomoćniProjekatGamingHub.Models;
+using PomoćniProjekatGamingHub.Models.Igra;
 
 namespace PomoćniProjekatGamingHub.Controllers
 {
@@ -73,6 +74,22 @@ namespace PomoćniProjekatGamingHub.Controllers
 
             db.SaveChanges();
             return Redirect("/Igra/Prikaz");
+        }
+        public IActionResult Detalji(int IgraID)
+        {
+           var m = db.Igra.Where(i => i.Id == IgraID)
+                    .Select(i => new IgraDetaljiVM
+                    {
+                        Id = i.Id,
+                        Naziv = i.Naziv,
+                        DatumIzlaska = i.DatumIzlaska,
+                        Developer = i.Developer,
+                        Izdavac = i.Izdavac,
+                        SlikaLink = i.SlikaLink,
+                        VideoLink = i.VideoLink
+                    }).FirstOrDefault();
+
+            return View(m);
         }
 
         public IActionResult Obrisi(int IgraID)

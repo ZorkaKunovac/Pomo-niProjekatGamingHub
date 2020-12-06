@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PomoćniProjekatGamingHub.Models
 {
-    public class IgraDodajVM
+    public class IgraUrediVM
     {
         public int Id { get; set; }
         public string Naziv { get; set; }

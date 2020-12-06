@@ -2,7 +2,7 @@
 @model List<IgraPrikazVM>
 
 <h1>Igre</h1>
-<a href="/Igra/UrediIgru" class="btn btn-success">Dodaj</a>
+<a href="/Igra/Uredi" class="btn btn-success">Dodaj</a>
 
 <br />
 <table class="table table-hover">
@@ -28,8 +28,8 @@
                 <td>@i.Developer</td>
                 <td>@(i.DatumIzlaska?.ToString("dd.MM.yyyy"))</td>
                 <td>
-                    <a href="/Igra/DetaljiIgre?IgraID=@i.Id" class="btn btn-primary">Detalji</a> |
-                    <a href="/Igra/UrediIgru?IgraID=@i.Id" class="btn btn-primary">Uredi</a> |
+                    <a href="/Igra/Detalji?IgraID=@i.Id" class="btn btn-primary">Detalji</a> |
+                    <a href="/Igra/Uredi?IgraID=@i.Id" class="btn btn-primary">Uredi</a> |
                     <a href="/Igra/Obrisi?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
                 </td>
             </tr>

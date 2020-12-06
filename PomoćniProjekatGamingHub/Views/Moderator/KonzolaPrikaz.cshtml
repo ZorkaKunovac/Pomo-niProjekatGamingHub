@@ -1,10 +1,5 @@
-﻿@model IEnumerable<PomoćniProjekatGamingHub.EntityModels.Konzola>
-@using PomoćniProjekatGamingHub.EntityModels
-@{
-    ViewData["Title"] = "KonzolaPrikaz";
-   var konzole= (List<Konzola>)ViewData["konzole"];
-}
-
+﻿@using PomoćniProjekatGamingHub.Models.Konzola
+@model  List<KonzolaPrikazVM>
 <h1>KonzolaPrikaz</h1>
 
 <a href="/Moderator/UrediKonzolu" class="btn btn-success">Dodaj</a>
@@ -20,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Konzola k in konzole)
+        @foreach (KonzolaPrikazVM k in Model)
         {
             <tr>
                 <td>@k.Naziv</td>

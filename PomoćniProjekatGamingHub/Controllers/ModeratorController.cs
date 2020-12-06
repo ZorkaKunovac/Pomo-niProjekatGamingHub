@@ -6,36 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PomoćniProjekatGamingHub.EF;
 using PomoćniProjekatGamingHub.EntityModels;
+using PomoćniProjekatGamingHub.Models.Konzola;
 
 namespace PomoćniProjekatGamingHub.Controllers
 {
     public class ModeratorController : Controller
     {
+        MojDbContext db = new MojDbContext();
         public IActionResult KonzolaPrikaz()
         {
-            MojDbContext db = new MojDbContext();
-            List<Konzola> konzole = db.Konzola.ToList();
-            ViewData["konzole"] = konzole;
-            return View("KonzolaPrikaz");
+            var m = db.Konzola.Select(k => new KonzolaPrikazVM
+            {
+                Id = k.Id,
+                Kapacitet = k.Kapacitet,
+                Detalji = k.Detalji,
+                Naziv = k.Naziv,
+                Proizvodjac = k.Proizvodjac
+            }).ToList();
+
+            return View(m);
         }
-        public IActionResult ListaIgara()
-        {
-            MojDbContext db = new MojDbContext();
-            List<Igra> igre = db.Igra.ToList();
-            ViewData["igre"] = igre;
-            return View("ListaIgara");
-        }
+
         public IActionResult ListaRecenzija()
         {
-            MojDbContext db = new MojDbContext();
-            List<Recenzija> recenzije = db.Recenzija.ToList();
+             List<Recenzija> recenzije = db.Recenzija.ToList();
             ViewData["recenzije"] = recenzije;
             return View("ListaRecenzija");
         }
         public IActionResult SnimiKonzolu(int KonzolaID, string Naziv, string Proizvodjac, int Kapacitet, string Detalji)
         {
-            MojDbContext db = new MojDbContext();
-            Konzola konzola;
+             Konzola konzola;
             if (KonzolaID == 0)
             {
                 konzola = new Konzola();
@@ -56,16 +56,14 @@ namespace PomoćniProjekatGamingHub.Controllers
 
         public IActionResult UrediKonzolu(int KonzolaID)
         {
-            MojDbContext db = new MojDbContext();
-
+ 
             Konzola k = KonzolaID == 0 ? new Konzola() : db.Konzola.Find(KonzolaID);
             ViewData["konzola"] = k;
             return View("UrediKonzolu");
         }
         public IActionResult ObrisiKonzolu(int KonzolaID)
         {
-            MojDbContext db = new MojDbContext();
-            Konzola k = db.Konzola.Find(KonzolaID);
+             Konzola k = db.Konzola.Find(KonzolaID);
             db.Remove(k);
             db.SaveChanges();
             return Redirect("/Moderator/KonzolaPrikaz");
@@ -73,16 +71,14 @@ namespace PomoćniProjekatGamingHub.Controllers
 
         public IActionResult PrikazZarn()
         {
-            MojDbContext db = new MojDbContext();
-            List<Zarn> zarnovi = db.Zarn.ToList();
+             List<Zarn> zarnovi = db.Zarn.ToList();
 
             ViewData["zarnovi"] = zarnovi;
             return View("PrikazZarn");
         }
         public IActionResult SnimiZarn(int ZarnID, string Naziv, string Opis)
         {
-            MojDbContext db = new MojDbContext();
-            Zarn zarn;
+             Zarn zarn;
             if (ZarnID == 0)
             {
                 zarn = new Zarn();
@@ -101,7 +97,7 @@ namespace PomoćniProjekatGamingHub.Controllers
  
         public IActionResult Uredi(int ZarnID)
         {
-            MojDbContext db = new MojDbContext();
+            
 
             Zarn z = ZarnID == 0 ? new Zarn() : db.Zarn.Find(ZarnID);
             ViewData["zarn"] = z;
@@ -109,7 +105,7 @@ namespace PomoćniProjekatGamingHub.Controllers
         }
         public IActionResult Obrisi(int ZarnID)
         {
-            MojDbContext db = new MojDbContext();
+            
             Zarn z = db.Zarn.Find(ZarnID);
             db.Remove(z);
             db.SaveChanges();

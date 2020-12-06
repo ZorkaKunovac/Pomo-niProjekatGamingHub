@@ -1,16 +1,14 @@
 ﻿@using PomoćniProjekatGamingHub.EntityModels
-
-@{
-    var igre = (List<Igra>)ViewData["igre"];
-}
+@model List<IgraPrikazVM>
 
 <h1>Igre</h1>
-<a href="/Moderator/UrediIgru" class="btn btn-success">Dodaj</a>
+<a href="/Igra/UrediIgru" class="btn btn-success">Dodaj</a>
 
 <br />
 <table class="table table-hover">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Slika</th>
             <th>Naziv</th>
             <th>Izdavac</th>
@@ -20,18 +18,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Igra i in igre)
+        @foreach (IgraPrikazVM i in Model)
         {
             <tr>
+                <td>@i.Id</td>
                 <td>@i.SlikaLink</td>
                 <td>@i.Naziv</td>
                 <td>@i.Izdavac</td>
                 <td>@i.Developer</td>
-                <td>@i.DatumIzlaska</td>
+                <td>@(i.DatumIzlaska?.ToString("dd.MM.yyyy"))</td>
                 <td>
-                    <a href="/Moderator/DetaljiIgre?IgraID=@i.Id" class="btn btn-primary">Detalji</a>
-                    <a href="/Moderator/UrediIgru?IgraID=@i.Id" class="btn btn-primary">Uredi</a>
-                    <a href="/Moderator/ObrisiIgru?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
+                    <a href="/Igra/DetaljiIgre?IgraID=@i.Id" class="btn btn-primary">Detalji</a> |
+                    <a href="/Igra/UrediIgru?IgraID=@i.Id" class="btn btn-primary">Uredi</a> |
+                    <a href="/Igra/Obrisi?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
                 </td>
             </tr>
         }

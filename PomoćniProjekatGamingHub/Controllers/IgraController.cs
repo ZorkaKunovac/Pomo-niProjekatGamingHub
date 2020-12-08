@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PomoćniProjekatGamingHub.EF;
 using PomoćniProjekatGamingHub.EntityModels;
+using PomoćniProjekatGamingHub.Helpers;
 using PomoćniProjekatGamingHub.Models;
 using PomoćniProjekatGamingHub.Models.Igra;
 
@@ -22,7 +24,7 @@ namespace PomoćniProjekatGamingHub.Controllers
                 DatumIzlaska = i.DatumIzlaska,
                 Developer = i.Developer,
                 Izdavac = i.Izdavac,
-                SlikaLink = i.SlikaLink
+                SlikaLink = ImageHelper.GetImageBase64(i.SlikaLink)
             }).ToList();
             return View(m);
         }
@@ -46,13 +48,17 @@ namespace PomoćniProjekatGamingHub.Controllers
                         DatumIzlaska = i.DatumIzlaska,
                         Developer = i.Developer,
                         Izdavac = i.Izdavac,
-                        SlikaLink = i.SlikaLink,
+                        SlikaLink = ImageHelper.GetImageBase64(i.SlikaLink),
                         VideoLink = i.VideoLink
                     }).Single();
             }
             return View(m);
         }
-        public IActionResult Snimi(IgraUrediVM i)
+        //<div class="form-group">
+        //        <label class="control-label">Plakat</label><br />
+        //        <input type = "file" name="file" id="file" />
+        //    </div>
+        public IActionResult Snimi(IgraUrediVM i, IFormFile file)
         {
             Igra igra;
             if (i.Id == 0)
@@ -69,7 +75,7 @@ namespace PomoćniProjekatGamingHub.Controllers
             igra.DatumIzlaska = i.DatumIzlaska;
             igra.Developer = i.Developer;
             igra.Izdavac = i.Izdavac;
-            igra.SlikaLink = i.SlikaLink;
+            igra.SlikaLink = ImageHelper.GetImageByteArray(file);
             igra.VideoLink = i.VideoLink;
 
             db.SaveChanges();
@@ -85,8 +91,8 @@ namespace PomoćniProjekatGamingHub.Controllers
                         DatumIzlaska = i.DatumIzlaska,
                         Developer = i.Developer,
                         Izdavac = i.Izdavac,
-                        SlikaLink = i.SlikaLink,
-                        VideoLink = i.VideoLink
+                        VideoLink = i.VideoLink,
+                        SlikaLink = ImageHelper.GetImageBase64(i.SlikaLink)
                     }).FirstOrDefault();
 
             return View(m);

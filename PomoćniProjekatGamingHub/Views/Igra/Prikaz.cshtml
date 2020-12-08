@@ -20,19 +20,24 @@
     <tbody>
         @foreach (IgraPrikazVM i in Model)
         {
-            <tr>
-                <td>@i.Id</td>
-                <td>@i.SlikaLink</td>
-                <td>@i.Naziv</td>
-                <td>@i.Izdavac</td>
-                <td>@i.Developer</td>
-                <td>@(i.DatumIzlaska?.ToString("dd.MM.yyyy"))</td>
-                <td>
-                    <a href="/Igra/Detalji?IgraID=@i.Id" class="btn btn-primary">Detalji</a> |
-                    <a href="/Igra/Uredi?IgraID=@i.Id" class="btn btn-primary">Uredi</a> |
-                    <a href="/Igra/Obrisi?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@i.Id</td>
+            <td>
+                @if (!string.IsNullOrEmpty(i.SlikaLink))
+                {
+                     <img src="@i.SlikaLink" style="max-width:100px; max-height:100px" />
+                }
+            </td>
+            <td>@i.Naziv</td>
+            <td>@i.Izdavac</td>
+            <td>@i.Developer</td>
+            <td>@(i.DatumIzlaska?.ToString("dd.MM.yyyy"))</td>
+            <td>
+                <a href="/Igra/Detalji?IgraID=@i.Id" class="btn btn-primary">Detalji</a> |
+                <a href="/Igra/Uredi?IgraID=@i.Id" class="btn btn-primary">Uredi</a> |
+                <a href="/Igra/Obrisi?IgraID=@i.Id" class="btn btn-danger">Obrisi</a>
+            </td>
+        </tr>
         }
 
     </tbody>

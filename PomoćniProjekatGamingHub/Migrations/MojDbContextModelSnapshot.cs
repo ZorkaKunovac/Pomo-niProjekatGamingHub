@@ -39,8 +39,7 @@ namespace PomoćniProjekatGamingHub.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("SlikaLink")
-                        .HasColumnType("varbinary(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("VideoLink")
                         .HasColumnType("nvarchar(100)")

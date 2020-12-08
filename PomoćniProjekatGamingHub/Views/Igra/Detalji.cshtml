@@ -62,8 +62,14 @@
                 @Html.DisplayNameFor(model => model.SlikaLink)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SlikaLink)
-            </dd>
+                @if (!string.IsNullOrEmpty(Model.SlikaLink))
+                {
+                     <img src="@Model.SlikaLink" style="max-width:320px; max-height:520px" /> }
+                else
+                {
+                     <img src="~/img/no-game.jpg" style="max-width:320px; max-height:520px" /> 
+                }
+             </dd>
         </dl>
 </div>
 <div>

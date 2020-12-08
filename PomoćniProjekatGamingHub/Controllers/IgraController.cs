@@ -54,10 +54,6 @@ namespace PomoćniProjekatGamingHub.Controllers
             }
             return View(m);
         }
-        //<div class="form-group">
-        //        <label class="control-label">Plakat</label><br />
-        //        <input type = "file" name="file" id="file" />
-        //    </div>
         public IActionResult Snimi(IgraUrediVM i, IFormFile file)
         {
             Igra igra;
@@ -75,8 +71,13 @@ namespace PomoćniProjekatGamingHub.Controllers
             igra.DatumIzlaska = i.DatumIzlaska;
             igra.Developer = i.Developer;
             igra.Izdavac = i.Izdavac;
-            igra.SlikaLink = ImageHelper.GetImageByteArray(file);
             igra.VideoLink = i.VideoLink;
+
+            var novaSlika = ImageHelper.GetImageByteArray(file);
+            if (novaSlika != null)
+            {
+                igra.SlikaLink = novaSlika;
+            }
 
             db.SaveChanges();
             return Redirect("/Igra/Prikaz");

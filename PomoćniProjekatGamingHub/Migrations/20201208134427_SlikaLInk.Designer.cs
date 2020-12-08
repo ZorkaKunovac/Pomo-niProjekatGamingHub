@@ -10,8 +10,8 @@ using PomoćniProjekatGamingHub.EF;
 namespace PomoćniProjekatGamingHub.Migrations
 {
     [DbContext(typeof(MojDbContext))]
-    [Migration("20201206224538_UploadSlikeIgara")]
-    partial class UploadSlikeIgara
+    [Migration("20201208134427_SlikaLInk")]
+    partial class SlikaLInk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,8 +41,7 @@ namespace PomoćniProjekatGamingHub.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("SlikaLink")
-                        .HasColumnType("varbinary(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("VideoLink")
                         .HasColumnType("nvarchar(100)")

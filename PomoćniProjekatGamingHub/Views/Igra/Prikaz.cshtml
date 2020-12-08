@@ -25,7 +25,11 @@
             <td>
                 @if (!string.IsNullOrEmpty(i.SlikaLink))
                 {
-                     <img src="@i.SlikaLink" style="max-width:100px; max-height:100px" />
+                    <img src="@i.SlikaLink" style="max-width:100px; max-height:100px" />
+                }
+                else
+                {
+                    <img src="~/img/no-game.jpg" style="max-width:100px; max-height:100px" />
                 }
             </td>
             <td>@i.Naziv</td>

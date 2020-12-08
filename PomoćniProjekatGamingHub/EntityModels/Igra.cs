@@ -16,8 +16,6 @@ namespace PomoćniProjekatGamingHub.EntityModels
 
         [MaxLength(100)]
         public string VideoLink { get; set; }
-
-        [MaxLength(100)]
         public byte[] SlikaLink { get; set; }
         public Proizvod Proizvod { get; set; }
         public virtual ICollection<IgraZarn> IgraZarn { get; set; }

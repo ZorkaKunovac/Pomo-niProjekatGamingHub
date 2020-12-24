@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PomoćniProjekatGamingHub.EF;
 using PomoćniProjekatGamingHub.EntityModels;
 using PomoćniProjekatGamingHub.Models.IgraZarn;
@@ -23,6 +24,31 @@ namespace PomoćniProjekatGamingHub.Controllers
              }).ToList();
             m.IgraID = IgraID;
             return View(m);
+        }
+        public IActionResult Dodaj(int IgraID)
+        {
+            var m = new IgraZarnDodajVM
+            {
+                Zarnovi = db.Zarn.Select(z => new SelectListItem
+                {
+                    Value = z.Id.ToString(),
+                    Text = z.Naziv
+                }).ToList()
+            };
+            m.IgraID = IgraID;
+            return View(m);
+        }
+        public IActionResult Snimi(IgraZarnDodajVM i)
+        {
+            IgraZarn igraZarn = new IgraZarn
+            {
+                IgraID = i.IgraID,
+                ZarnID = i.ZarnID
+            };
+            db.Add(igraZarn);
+
+            db.SaveChanges();
+            return Redirect("/Igra/Detalji?IgraID=" + igraZarn.IgraID);
         }
 
         public IActionResult Obrisi(int IgraZarnID)

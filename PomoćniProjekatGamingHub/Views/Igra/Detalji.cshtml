@@ -88,6 +88,26 @@
                 UcitajStavke();
             });
     }
+
+    function StavkaDodaj(IgraID) {
+        $.get("/IgraZarn/Dodaj?IgraID=" + IgraID,
+            function (d) {
+                $("#ajaxDiv").html(d);
+            });
+    }
+
+    function StavkaSnimi() {
+        var form = $("#IgraZarnForma");
+        var url = "/IgraZarn/Snimi";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function (data) { UcitajStavke(); }
+        });
+    }
+
+
 </script>
 
 <div>

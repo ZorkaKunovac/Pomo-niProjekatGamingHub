@@ -11,10 +11,7 @@ namespace PomoćniProjekatGamingHub.Models.IgraZarn
         {
             public int IgraZarnID { get; set; }
             public string Zarn { get; set; }
-
-            //public string Proizvod { get; set; }
         }
-        //     public int FakturaID { get; set; }
         public int IgraID { get; set; }
         public List<Rows> rows { get; set; }
     }

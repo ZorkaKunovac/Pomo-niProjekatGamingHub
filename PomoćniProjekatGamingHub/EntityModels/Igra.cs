@@ -18,7 +18,7 @@ namespace PomoćniProjekatGamingHub.EntityModels
         public string VideoLink { get; set; }
         public byte[] SlikaLink { get; set; }
         public Proizvod Proizvod { get; set; }
-        public virtual ICollection<IgraZarn> IgraZarn { get; set; }
+        //public virtual ICollection<IgraZarn> IgraZarn { get; set; }
         public virtual ICollection<IgraKonzola> IgraKonzola { get; set; }
         public virtual ICollection<IgraTag> IgraTag { get; set; }
     }

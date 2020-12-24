@@ -11,16 +11,16 @@ namespace PomoćniProjekatGamingHub.EF
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IgraZarn>()
-                .HasKey(iz => new { iz.IgraID, iz.ZarnID });
-            modelBuilder.Entity<IgraZarn>()
-                .HasOne(iz => iz.Igra)
-                .WithMany(i => i.IgraZarn)
-                .HasForeignKey(iz => iz.IgraID);
-            modelBuilder.Entity<IgraZarn>()
-                .HasOne(iz => iz.Zarn)
-                .WithMany(z => z.IgraZarn)
-                .HasForeignKey(iz => iz.ZarnID);
+            //modelBuilder.Entity<IgraZarn>()
+            //    .HasKey(iz => new { iz.IgraID, iz.ZarnID });
+            //modelBuilder.Entity<IgraZarn>()
+            //    .HasOne(iz => iz.Igra)
+            //    .WithMany(i => i.IgraZarn)
+            //    .HasForeignKey(iz => iz.IgraID);
+            //modelBuilder.Entity<IgraZarn>()
+            //    .HasOne(iz => iz.Zarn)
+            //    .WithMany(z => z.IgraZarn)
+            //    .HasForeignKey(iz => iz.ZarnID);
 
             modelBuilder.Entity<IgraKonzola>()
                 .HasKey(ik => new { ik.IgraID, ik.KonzolaID });

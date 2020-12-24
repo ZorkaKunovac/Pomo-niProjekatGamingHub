@@ -75,64 +75,6 @@ namespace PomoćniProjekatGamingHub.Controllers
             db.SaveChanges();
             return Redirect("/Moderator/KonzolaPrikaz");
         }
-
-        public IActionResult PrikazZarn()
-        {
-            var zarnovi = db.Zarn
-                .Select(z => new ZarnPrikazVM
-                {
-                    Id = z.Id,
-                    Naziv = z.Naziv,
-                    Opis = z.Opis
-                }).ToList();
-
-            return View(zarnovi);
-        }
-        public IActionResult UrediZarn(int ZarnID)
-        {
-            ZarnUrediVM zarn;
-            if (ZarnID == 0)
-            {
-                zarn = new ZarnUrediVM() { };
-            }
-            else
-            {
-                zarn = db.Zarn.Where(z => z.Id == ZarnID)
-                .Select(z => new ZarnUrediVM
-                {
-                    Id = z.Id,
-                    Naziv = z.Naziv,
-                    Opis = z.Opis
-                }).Single();
-            }
-
-            return View(zarn);
-        }
-        public IActionResult SnimiZarn(ZarnUrediVM z)
-        {
-             Zarn zarn;
-            if (z.Id == 0)
-            {
-                zarn = new Zarn();
-                db.Add(zarn);
-            }
-            else
-            {
-                zarn = db.Zarn.Find(z.Id);
-            }
-            zarn.Naziv = z.Naziv;
-            zarn.Opis = z.Opis;
-
-            db.SaveChanges();
-            return Redirect("/Moderator/PrikazZarn");
-        }
-        public IActionResult Obrisi(int ZarnID)
-        {
-            Zarn z = db.Zarn.Find(ZarnID);
-            db.Remove(z);
-            db.SaveChanges();
-            return Redirect("/Moderator/PrikazZarn");
-        }
         public IActionResult ListaRecenzija()
         {
              List<Recenzija> recenzije = db.Recenzija.ToList();

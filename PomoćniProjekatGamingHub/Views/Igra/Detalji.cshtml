@@ -72,6 +72,24 @@
              </dd>
         </dl>
 </div>
+<div id="ajaxDiv" style="border:1px solid red">
+
+</div>
+<script>
+     function UcitajStavke() {
+         $.get("/IgraZarn/Index?IgraID=@Model.Id", function (d) {
+             $("#ajaxDiv").html(d);
+        })
+    }
+    UcitajStavke();
+    function StavkaObrisi(IgraZarnID) {
+        $.get("/IgraZarn/Obrisi?IgraZarnID=" + IgraZarnID,
+            function (d) {
+                UcitajStavke();
+            });
+    }
+</script>
+
 <div>
     @Html.ActionLink("Edit", "Edit", new {  id = Model.Id  }) |
     <a asp-action="Prikaz">Natrag na listu</a>

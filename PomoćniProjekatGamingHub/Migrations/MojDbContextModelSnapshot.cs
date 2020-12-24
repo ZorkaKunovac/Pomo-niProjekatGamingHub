@@ -82,13 +82,20 @@ namespace PomoćniProjekatGamingHub.Migrations
 
             modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.IgraZarn", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("IgraID")
                         .HasColumnType("int");
 
                     b.Property<int>("ZarnID")
                         .HasColumnType("int");
 
-                    b.HasKey("IgraID", "ZarnID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("IgraID");
 
                     b.HasIndex("ZarnID");
 
@@ -316,13 +323,13 @@ namespace PomoćniProjekatGamingHub.Migrations
             modelBuilder.Entity("PomoćniProjekatGamingHub.EntityModels.IgraZarn", b =>
                 {
                     b.HasOne("PomoćniProjekatGamingHub.EntityModels.Igra", "Igra")
-                        .WithMany("IgraZarn")
+                        .WithMany()
                         .HasForeignKey("IgraID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PomoćniProjekatGamingHub.EntityModels.Zarn", "Zarn")
-                        .WithMany("IgraZarn")
+                        .WithMany()
                         .HasForeignKey("ZarnID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

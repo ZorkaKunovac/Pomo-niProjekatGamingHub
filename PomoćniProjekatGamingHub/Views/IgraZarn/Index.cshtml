@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+@using PomoćniProjekatGamingHub.Models.IgraZarn
+@model IgraZarnPrikazVM
+
+<table class="table table-bordered" width="50%">
+    <thead>
+        <tr>
+            <th> Zarn</th>
+            <th> Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var iz in Model.rows)
+        {
+            <tr>
+                <td>@iz.Zarn</td>
+                <td>
+                    <button onclick="StavkaObrisi(@iz.IgraZarnID)">Obrisi</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

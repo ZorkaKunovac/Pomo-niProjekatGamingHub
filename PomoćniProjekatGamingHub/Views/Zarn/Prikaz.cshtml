@@ -3,7 +3,7 @@
 @model List<ZarnPrikazVM>
 
 <h1>Zarnovi</h1>
-<a href="/Moderator/UrediZarn" class="btn btn-success">Dodaj</a>
+<a href="/Zarn/Uredi" class="btn btn-success">Dodaj</a>
 <br />
 <table class="table table-hover">
     <thead>
@@ -20,8 +20,8 @@
                 <td>@z.Naziv</td>
                 <td>@z.Opis</td>
                 <td>
-                    <a href="/Moderator/UrediZarn?ZarnID=@z.Id" class="btn btn-primary">Uredi</a>
-                    <a href="/Moderator/Obrisi?ZarnID=@z.Id" class="btn btn-danger">Obrisi</a>
+                    <a href="/Zarn/Uredi?ZarnID=@z.Id" class="btn btn-primary">Uredi</a>
+                    <a href="/Zarn/Obrisi?ZarnID=@z.Id" class="btn btn-danger">Obrisi</a>
                 </td>
             </tr>
         }

@@ -29,29 +29,80 @@ namespace PomoćniProjekatGamingHub.Controllers
             return View(m);
         }
 
-        //NIJE RIJESENA KONEKCIJA SA ZARNOM I KONZOLAMA
-        //NIJE RIJESENA KONEKCIJA SA ZARNOM I KONZOLAMA
+        [HttpGet]
+        public IActionResult Dodaj()
+        {
+            List<CheckBoxHelper> listaKonzola = new List<CheckBoxHelper>();
+
+            listaKonzola = db.Konzola.Select(a => new CheckBoxHelper
+            {
+                Id = a.Id,
+                Text = a.Naziv,
+                IsChecked = false,
+                KonzolaId = a.Id
+            }).ToList();
+
+            IgraDodajVM model = new IgraDodajVM
+            {
+                CheckBox = listaKonzola
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Dodaj(IgraDodajVM igra, IFormFile file)
+        {
+            Igra novaIgra = new Igra
+            {
+                Naziv = igra.Naziv,
+                Developer = igra.Developer,
+                Izdavac = igra.Izdavac,
+                DatumIzlaska = igra.DatumIzlaska,
+                VideoLink = igra.VideoLink,
+                SlikaLink = ImageHelper.GetImageByteArray(file),
+            };
+            db.Igra.Add(novaIgra);
+            db.SaveChanges();
+
+            foreach (var item in igra.CheckBox)
+            {
+                IgraKonzola k = new IgraKonzola
+                {
+                    IgraID = novaIgra.Id,
+                    KonzolaID = item.KonzolaId,
+                    IsChecked = item.IsChecked
+                };
+                db.IgraKonzola.Add(k);
+            }
+            db.SaveChanges();
+            return Redirect("/Igra/Prikaz");
+        }
+
+        [HttpGet]
+
         public IActionResult Uredi(int IgraID)
         {
-            IgraUrediVM m;
-            if (IgraID == 0)
+            var igraIzBaze = db.Igra.Find(IgraID);
+
+            IgraUrediVM m = new IgraUrediVM
             {
-                m = new IgraUrediVM() { };
-            }
-            else
-            {
-                m = db.Igra.Where(i => i.Id == IgraID)
-                    .Select(i => new IgraUrediVM
-                    {
-                        Id = i.Id,
-                        Naziv = i.Naziv,
-                        DatumIzlaska = i.DatumIzlaska,
-                        Developer = i.Developer,
-                        Izdavac = i.Izdavac,
-                        SlikaLink = ImageHelper.GetImageBase64(i.SlikaLink),
-                        VideoLink = i.VideoLink
-                    }).Single();
-            }
+                Id = IgraID,
+                Naziv = igraIzBaze.Naziv,
+                Developer = igraIzBaze.Developer,
+                DatumIzlaska = igraIzBaze.DatumIzlaska,
+                VideoLink = igraIzBaze.VideoLink,
+                SlikaLink = ImageHelper.GetImageBase64(igraIzBaze.SlikaLink),
+
+                Konzola = db.IgraKonzola
+                .Where(ik => ik.IgraID == IgraID)
+                .Select(ik => new CheckBoxHelper
+                {
+                    Id = ik.ID,
+                    Text = ik.Konzola.Naziv,
+                    IsChecked = ik.IsChecked,
+                    KonzolaId = ik.KonzolaID
+                }).ToList()
+            };
             return View(m);
         }
         public IActionResult Snimi(IgraUrediVM i, IFormFile file)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PomoćniProjekatGamingHub.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +19,7 @@ namespace PomoćniProjekatGamingHub.Models
         public List<SelectListItem> IgraKonzola { get; set; }
         public string VideoLink { get; set; }
         public string SlikaLink { get; set; }
-        
+        public int KonzolaID { get; internal set; }
+        public List<CheckBoxHelper> Konzola { get; set; }
     }
 }

@@ -16,7 +16,7 @@
                 <small>Secondary Text</small>
             </h1>
             <br />
-            <a href="/Moderator/UrediRecenziju" class="btn btn-success">Dodaj recenziju</a>
+            <a href="/Recenzija/UrediRecenziju" class="btn btn-success">Dodaj recenziju</a>
             <br />
             <!-- Blog Recenzija -->
             @foreach (Recenzija r in recenzije)
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h2 class="card-title">@r.Naslov</h2>
                         <p class="card-text">@r.Sadrzaj</p>
-                        <a href="/Moderator/Detalji" class="btn btn-primary">Procitaj vise &rarr;</a>
+                        <a href="/Recenzija/Detalji" class="btn btn-primary">Procitaj vise &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         <a href="#"> @r.Korisnik.KorisnickoIme </a> @r.DatumKreiranja

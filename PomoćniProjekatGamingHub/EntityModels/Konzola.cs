@@ -9,9 +9,7 @@ namespace PomoćniProjekatGamingHub.EntityModels
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
-        public string Proizvodjac { get; set; }
         public int Kapacitet { get; set; }
         public string Detalji { get; set; }
-        public virtual ICollection<IgraKonzola> IgraKonzola { get; set; }
     }
 }

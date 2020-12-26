@@ -2,13 +2,12 @@
 @model  List<KonzolaPrikazVM>
 <h1>KonzolaPrikaz</h1>
 
-<a href="/Moderator/UrediKonzolu" class="btn btn-success">Dodaj</a>
+<a href="/Konzola/Uredi" class="btn btn-success">Dodaj</a>
 
 <table class="table table-hover">
     <thead>
         <tr>
             <th>Naziv</th>
-            <th>Opis</th>
             <th>Kapacitet</th>
             <th>Detalji</th>
             <th>Akcija</th>
@@ -19,12 +18,11 @@
         {
             <tr>
                 <td>@k.Naziv</td>
-                <td>@k.Proizvodjac</td>
                 <td>@k.Kapacitet</td>
                 <td>@k.Detalji</td>
                 <td>
-                    <a href="/Moderator/UrediKonzolu?KonzolaID=@k.Id" class="btn btn-primary">Uredi</a>
-                    <a href="/Moderator/ObrisiKonzolu?KonzolaID=@k.Id" class="btn btn-danger">Obrisi</a>
+                    <a href="/Konzola/Uredi?KonzolaID=@k.Id" class="btn btn-primary">Uredi</a>
+                    <a href="/Konzola/Obrisi?KonzolaID=@k.Id" class="btn btn-danger">Obrisi</a>
                 </td>
             </tr>
         }

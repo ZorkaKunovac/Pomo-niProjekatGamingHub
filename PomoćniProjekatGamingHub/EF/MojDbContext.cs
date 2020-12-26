@@ -22,16 +22,16 @@ namespace PomoćniProjekatGamingHub.EF
             //    .WithMany(z => z.IgraZarn)
             //    .HasForeignKey(iz => iz.ZarnID);
 
-            modelBuilder.Entity<IgraKonzola>()
-                .HasKey(ik => new { ik.IgraID, ik.KonzolaID });
-            modelBuilder.Entity<IgraKonzola>()
-                .HasOne(ik => ik.Igra)
-                .WithMany(i => i.IgraKonzola)
-                .HasForeignKey(ik => ik.IgraID);
-            modelBuilder.Entity<IgraKonzola>()
-                .HasOne(ik => ik.Konzola)
-                .WithMany(k => k.IgraKonzola)
-                .HasForeignKey(ik => ik.KonzolaID);
+            //modelBuilder.Entity<IgraKonzola>()
+            //    .HasKey(ik => new { ik.IgraID, ik.KonzolaID });
+            //modelBuilder.Entity<IgraKonzola>()
+            //    .HasOne(ik => ik.Igra)
+            //    .WithMany(i => i.IgraKonzola)
+            //    .HasForeignKey(ik => ik.IgraID);
+            //modelBuilder.Entity<IgraKonzola>()
+            //    .HasOne(ik => ik.Konzola)
+            //    .WithMany(k => k.IgraKonzola)
+            //    .HasForeignKey(ik => ik.KonzolaID);
 
             modelBuilder.Entity<IgraTag>()
                 .HasKey(it => new { it.IgraID, it.TagID });

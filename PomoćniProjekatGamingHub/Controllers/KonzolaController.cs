@@ -11,10 +11,10 @@ using PomoćniProjekatGamingHub.Models.Zarn;
 
 namespace PomoćniProjekatGamingHub.Controllers
 {
-    public class ModeratorController : Controller
+    public class KonzolaController : Controller
     {
         MojDbContext db = new MojDbContext();
-        public IActionResult KonzolaPrikaz()
+        public IActionResult Prikaz()
         {
             var m = db.Konzola.Select(k => new KonzolaPrikazVM
             {
@@ -22,12 +22,11 @@ namespace PomoćniProjekatGamingHub.Controllers
                 Kapacitet = k.Kapacitet,
                 Detalji = k.Detalji,
                 Naziv = k.Naziv,
-                Proizvodjac = k.Proizvodjac
             }).ToList();
 
             return View(m);
         }
-        public IActionResult UrediKonzolu(int KonzolaID)
+        public IActionResult Uredi(int KonzolaID)
         {
             KonzolaUrediVM m;
             if (KonzolaID == 0)
@@ -43,12 +42,11 @@ namespace PomoćniProjekatGamingHub.Controllers
                     Naziv = k.Naziv,
                     Detalji = k.Detalji,
                     Kapacitet = k.Kapacitet,
-                    Proizvodjac = k.Proizvodjac
                 }).Single();
             }
             return View(m);
         }
-        public IActionResult SnimiKonzolu(KonzolaUrediVM Konzola)
+        public IActionResult Snimi(KonzolaUrediVM Konzola)
         {
              Konzola konzola;
             if (Konzola.KonzolaID == 0)
@@ -61,19 +59,18 @@ namespace PomoćniProjekatGamingHub.Controllers
                 konzola = db.Konzola.Find(Konzola.KonzolaID);
             }
             konzola.Naziv = Konzola.Naziv;
-            konzola.Proizvodjac = Konzola.Proizvodjac;
             konzola.Kapacitet = Konzola.Kapacitet;
             konzola.Detalji = Konzola.Detalji;
 
             db.SaveChanges();
-            return Redirect("/Moderator/KonzolaPrikaz");
+            return Redirect("/Konzola/Prikaz");
         }
-        public IActionResult ObrisiKonzolu(int KonzolaID)
+        public IActionResult Obrisi(int KonzolaID)
         {
              Konzola k = db.Konzola.Find(KonzolaID);
             db.Remove(k);
             db.SaveChanges();
-            return Redirect("/Moderator/KonzolaPrikaz");
+            return Redirect("/Konzola/Prikaz");
         }
         public IActionResult ListaRecenzija()
         {

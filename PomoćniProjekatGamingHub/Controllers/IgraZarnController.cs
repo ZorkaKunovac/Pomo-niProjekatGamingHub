@@ -27,15 +27,25 @@ namespace PomoćniProjekatGamingHub.Controllers
         }
         public IActionResult Dodaj(int IgraID)
         {
-            var m = new IgraZarnDodajVM
-            {
-                Zarnovi = db.Zarn.Select(z => new SelectListItem
-                {
-                    Value = z.Id.ToString(),
-                    Text = z.Naziv
-                }).ToList()
-            };
+            IgraZarnDodajVM m = new IgraZarnDodajVM();
             m.IgraID = IgraID;
+            //List<IgraZarn> igraZarnovi = db.IgraZarn.Where(iz => iz.IgraID == IgraID).ToList();
+            //igraZarnovi.ForEach(iz =>
+            //{
+            //    //var KolekcijaZarnova = db.Zarn.Where(z => z.Id != iz.ZarnID).ToList();
+            //    m.Zarnovi = db.Zarn.Where(z => z.Id != iz.ZarnID)
+            //    .Select(z => new SelectListItem
+            //    {
+            //        Value = z.Id.ToString(),
+            //        Text = z.Naziv
+            //    }).ToList();
+            //});
+            m.Zarnovi = db.Zarn.Select(z => new SelectListItem
+            {
+                Value = z.Id.ToString(),
+                Text = z.Naziv
+            }).ToList();
+
             return View(m);
         }
         public IActionResult Snimi(IgraZarnDodajVM i)

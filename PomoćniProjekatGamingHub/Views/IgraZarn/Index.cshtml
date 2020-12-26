@@ -4,7 +4,8 @@
 @using PomoćniProjekatGamingHub.Models.IgraZarn
 @model IgraZarnPrikazVM
 
-<button class="btn-success" onclick="StavkaDodaj(@Model.IgraID)">Dodaj</button>
+<button class="btn btn-success" onclick="StavkaDodaj(@Model.IgraID)">Dodaj</button>
+<br />
 <table width="50%" class="table table-bordered">
     <thead>
         <tr>
@@ -18,7 +19,7 @@
             <tr>
                 <td>@iz.Zarn</td>
                 <td>
-                    <button onclick="StavkaObrisi(@iz.IgraZarnID)">Obrisi</button>
+                    <button class="btn btn-danger" onclick="StavkaObrisi(@iz.IgraZarnID)">Obrisi</button>
                 </td>
             </tr>
         }

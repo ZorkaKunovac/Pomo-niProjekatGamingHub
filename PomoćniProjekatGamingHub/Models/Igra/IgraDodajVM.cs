@@ -14,7 +14,7 @@ namespace PomoćniProjekatGamingHub.Models.Igra
         public string Izdavac { get; set; }
         public DateTime? DatumIzlaska { get; set; }
         public string VideoLink { get; set; }
-        public byte[] SlikaLink { get; set; }
+        public string SlikaLink { get; set; }
         public int KonzolaId { get; set; }
         public List<IgraKonzola> Konzola { get; set; }
         public List<CheckBoxHelper> CheckBox { get; set; }

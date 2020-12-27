@@ -1,4 +1,4 @@
-﻿@model PomoćniProjekatGamingHub.Models.IgraUrediVM
+﻿@model PomoćniProjekatGamingHub.Models.Igra.IgraDodajVM
 
 @{
     ViewData["Title"] = "Dodaj";
@@ -10,13 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Snimi" asp-controller="Igra" method="post" enctype="multipart/form-data">
+        <form asp-action="Dodaj" asp-controller="Igra" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" readonly hidden class="control-label"></label>
-                <input asp-for="Id" readonly hidden class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Naziv" class="control-label"></label>
                 <input asp-for="Naziv" class="form-control" />
@@ -51,27 +46,32 @@
                 <input asp-for="SlikaLink" type="file" name="file" id="file" />
                 <span asp-validation-for="SlikaLink" class="text-danger"></span>
             </div>
-            <div>
-                @for (int i = 0; i < Model.Konzola.Count(); i++)
-                {
-                    <input asp-for="@Model.Konzola[i].IsChecked" type="checkbox" />
-                    <label asp-for="@Model.Konzola[i].Text">@Model.Konzola[i].Text</label>
-                    <input asp-for="@Model.Konzola[i].Id" type="hidden" />
-                    <input asp-for="@Model.Konzola[i].Text" type="hidden" />
 
-                    <input asp-for="@Model.Konzola[i].KonzolaId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="KonzolaId" readonly hidden class="control-label">Konzole: </label>
+                <input asp-for="KonzolaId" readonly hidden class="form-control" />
+                <span asp-validation-for="KonzolaId" class="text-danger"></span>
+            </div>
+            <div>
+                @for (int i = 0; i < Model.CheckBox.Count; i++)
+                {
+                    <label>@Model.CheckBox[i].Text</label>
+                    <input type="checkbox" asp-for="@Model.CheckBox[i].IsChecked" />
+                    <input type="hidden" asp-for="@Model.CheckBox[i].KonzolaId" />
 
                 }
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Snimi" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Prikaz">Natrag na listu</a>
+    <a asp-action="Prikaz">Natrag</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

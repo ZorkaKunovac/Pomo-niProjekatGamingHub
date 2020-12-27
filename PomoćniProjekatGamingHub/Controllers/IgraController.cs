@@ -89,6 +89,7 @@ namespace PomoćniProjekatGamingHub.Controllers
                 Id = IgraID,
                 Naziv = igraIzBaze.Naziv,
                 Developer = igraIzBaze.Developer,
+                Izdavac=igraIzBaze.Izdavac,
                 DatumIzlaska = igraIzBaze.DatumIzlaska,
                 VideoLink = igraIzBaze.VideoLink,
                 SlikaLink = ImageHelper.GetImageBase64(igraIzBaze.SlikaLink),
@@ -105,31 +106,31 @@ namespace PomoćniProjekatGamingHub.Controllers
             };
             return View(m);
         }
-        public IActionResult Snimi(IgraUrediVM i, IFormFile file)
+        public IActionResult Snimi(IgraUrediVM igra, IFormFile file)
         {
-            Igra igra;
-            if (i.Id == 0)
-            {
-                igra = new Igra();
-                db.Add(igra);
-            }
-            else
-            {
-                igra = db.Igra.Find(i.Id);
-            }
-            igra.Id = i.Id;
-            igra.Naziv = i.Naziv;
-            igra.DatumIzlaska = i.DatumIzlaska;
-            igra.Developer = i.Developer;
-            igra.Izdavac = i.Izdavac;
-            igra.VideoLink = i.VideoLink;
 
+            Igra Igra = db.Igra.Find(igra.Id);
+            Igra.Naziv = igra.Naziv;
+            Igra.Developer = igra.Developer;
+            Igra.Izdavac = igra.Izdavac;
+            Igra.DatumIzlaska = igra.DatumIzlaska;
+            Igra.VideoLink = igra.VideoLink;
             var novaSlika = ImageHelper.GetImageByteArray(file);
             if (novaSlika != null)
             {
-                igra.SlikaLink = novaSlika;
+                Igra.SlikaLink = novaSlika;
             }
-
+            List<IgraKonzola> igraKonzola = db.IgraKonzola.Where(igraId => igraId.IgraID == igra.Id).ToList();
+            foreach (var item in igraKonzola)
+            {
+                foreach (var i in igra.Konzola)
+                {
+                    if (item.ID == i.Id)
+                    {
+                        item.IsChecked = i.IsChecked;
+                    }
+                }
+            }
             db.SaveChanges();
             return Redirect("/Igra/Prikaz");
         }

@@ -155,6 +155,11 @@ namespace PomoćniProjekatGamingHub.Controllers
         {
             Igra igra = db.Igra.Find(IgraID);
             db.Remove(igra);
+            List<IgraKonzola> iKonzole = db.IgraKonzola.Where(ik => ik.IgraID == IgraID).ToList();
+            db.RemoveRange(iKonzole);
+            List<IgraZarn> iZarnovi = db.IgraZarn.Where(iz => iz.IgraID == IgraID).ToList();
+            db.RemoveRange(iZarnovi);
+
             db.SaveChanges();
             return Redirect("/Igra/Prikaz");
         }
